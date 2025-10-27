@@ -1,0 +1,322 @@
+---
+title: "Task1"
+author: "Yuliia Lysaniuk"
+date: "19/10/2025"
+format:
+  html:
+    embed-resources: true
+editor: source
+---
+
+Theme: My Cat Busya
+
+### 1.1. Atomic Types
+
+Create the following variables related to your chosen object:
+
+-   **4 numeric** values (e.g., population, temperature, size, rating)\
+-   **3 integer** values (e.g., number of moons, buildings, inhabitants)\
+-   **2 logical** values (e.g., `has_water`, `is_inhabited`)\
+-   **3 character** values (e.g., `name`, `region`, `category`)
+
+**Tip:** Think of these variables as *attributes* of your object.\
+Use `print()` or `cat()` to describe them in one sentence.
+
+```{r}
+# Numeric variables
+weight <- 4.3            # in kilograms
+age <- 3.5               # in years
+sleep_hours <- 16.8      # average hours per day
+jump_height <- 1.2       # in meters
+
+# Integer variables
+num_toys <- 7
+num_meals <- 3
+num_vet_visits <- 2
+
+# Logical variables
+is_lazy <- TRUE
+likes_water <- FALSE
+
+# Character variables
+name <- "Busya"
+breed <- "Scottish Fold"
+favorite_food <- "chicken treats"
+```
+
+### 1.2. Vectors
+
+Create three different vectors:
+
+1.  **Numeric vector** combining all your numeric and integer variables.\
+    *(Use `c()`.)*
+
+2.  **Sequence vector** from any number between 10–50 to 100, Choose step between 2 and 10.\
+    *(Use `seq()` or `:`.)*
+
+3.  **Logical vector** of length 10 with random `TRUE`/`FALSE` values using `sample()`.
+
+```{r}
+# 1. Numeric vector (combine numeric + integer)
+numeric_vector <- c(weight, age, sleep_hours, jump_height,
+                    num_toys, num_meals, num_vet_visits)
+print(numeric_vector)
+
+# 2. Sequence vector (from 10 to 100, step 10)
+sequence_vector <- seq(10, 100, by = 10)
+print(sequence_vector)
+
+# 3. Logical vector (10 random TRUE/FALSE)
+logical_vector <- sample(c(TRUE, FALSE), 10, replace = TRUE)
+print(logical_vector)
+```
+
+### 1.3. Matrix
+
+Create a **3×3 matrix** with random numbers between **-50 and 50**\
+(using `sample()` or `runif()`), and name its **rows and columns** according to your theme.
+
+Then calculate row and column averages using `rowMeans()` and `colMeans()`.
+
+```{r}
+# Create 3x3 matrix with random numbers between -50 and 50
+busya_matrix <- matrix(sample(-50:50, 9), nrow = 3, ncol = 3)
+
+# Name rows and columns (related to Busya’s life)
+rownames(busya_matrix) <- c("Morning", "Afternoon", "Evening")
+colnames(busya_matrix) <- c("Playtime", "NapTime", "EnergyLevel")
+
+print(busya_matrix)
+
+# Row and column means
+row_means <- rowMeans(busya_matrix)
+col_means <- colMeans(busya_matrix)
+
+cat("\nAverage by rows (daily periods):\n")
+print(row_means)
+cat("\nAverage by columns (activities):\n")
+print(col_means)
+```
+
+### 1.4. List
+
+Create a **list** that combines all your previous objects:\
+atomic variables, vectors, and matrix. Add one extra element — a short **description** of your universe as a string.
+
+```{r}
+busya_list <- list(
+  numerics = numeric_vector,
+  sequence = sequence_vector,
+  logicals = logical_vector,
+  matrix = busya_matrix,
+  description = "Busya is a playful Scottish Fold cat who loves naps, chicken treats, and observing birds from the window."
+)
+print(busya_list)
+```
+
+### 1.5. Factor
+
+Create a **factor variable** representing categories within your universe, e.g.:
+
+-   `"low"`, `"medium"`, `"high"`\
+-   `"infant"`, `"child"`, `"adult"`\
+-   `"poor"`, `"average"`, `"rich"`
+
+Make sure you have **at least 5 observations** total.\
+Then use `table()` to show how many objects fall into each category.
+
+```{r}
+# Factor of Busya’s mood levels during the day
+mood_levels <- factor(
+  c("happy", "sleepy", "playful", "sleepy", "happy", "grumpy"),
+  levels = c("grumpy", "sleepy", "playful", "happy")
+)
+print(mood_levels)
+
+# Frequency table
+cat("\nBusya’s mood frequency:\n")
+print(table(mood_levels))
+```
+
+### 1.6. Data Frame
+
+Create a **data frame** related to your object that includes:
+
+1.  **5–8 observations** (rows)\
+2.  **At least 3 columns** of different data types\
+    (e.g., name, numeric value, logical flag, category)
+
+Then:
+
+-   Rename the columns using `names()` or `colnames()`.\
+-   Display its structure with `str()` and its summary with `summary()`.\
+-   Add a new column derived from the others (for example, a ratio or condition).
+
+```{r}
+# Create a data frame about Busya’s daily routine
+busya_day <- data.frame(
+  Activity = c("Eating", "Sleeping", "Playing", "Grooming", "Watching birds"),
+  Duration_hours = c(0.5, 16, 2, 1, 1.5),
+  Enjoyment_level = c("high", "very high", "very high", "medium", "high"),
+  Requires_owner = c(TRUE, FALSE, TRUE, FALSE, FALSE)
+)
+
+# Rename columns
+colnames(busya_day) <- c("Activity", "Duration_h", "Enjoyment", "With_Owner")
+
+# Display structure and summary
+str(busya_day)
+summary(busya_day)
+
+# Add new column – is_long_activity (more than 1 hour)
+busya_day$Is_Long <- busya_day$Duration_h > 1
+
+cat("\nUpdated data frame (Busya's daily routine):\n")
+print(busya_day)
+```
+
+## Task 2: Subsetting & Missing Data in Your Mini-Universe
+
+### 2.1. Querying Vectors
+
+Let's start with the vectors you created in **Task 1**.
+
+2.1.1. From your **Sequence vector** (the one with all your numbers):
+
+-   Select and print the 3rd element.
+-   Select and print elements 2 through 5.
+-   Select and print all values that are greater than 20 (or another number that makes sense for your data).
+
+2.1.2. From your **Logical vector**:
+
+-   Select and print only the TRUE values. (Hint: `your_vector[your_vector]`).
+-   Use `which()` to get the indices (positions) of all the `TRUE` values.
+
+```{r}
+# 2.1.1 Sequence vector
+
+cat("3rd element:", sequence_vector[3], "\n")
+cat("Elements 2-5:", sequence_vector[2:5], "\n")
+cat("Values > 20:", sequence_vector[sequence_vector > 20], "\n")
+
+# 2.1.2 Logical vector
+
+true_values <- logical_vector[logical_vector]
+cat("TRUE values:", true_values, "\n")
+true_indices <- which(logical_vector)
+cat("Indices of TRUE values:", true_indices, "\n")
+
+```
+
+### 2.2. Querying Your "Universe" List
+
+Use your main list from **Task 1**.
+
+-   Access and print the **description** string using the `$` operator
+-   Access and print your **3x3 matrix** using double brackets `[[ ]]`.
+-   Access and print the **second element** from your **vector element** within the list. (This will be a "list-within-a-list" access).
+
+```{r}
+cat("Description:", busya_list$description, "\n")
+cat("Matrix:\n")
+print(busya_list[["matrix"]])
+cat("Second element of numeric vector in list:", busya_list$numerics[2], "\n")
+
+```
+
+### 2.3. Investigating Your Data Frame
+
+Use the **data frame** you created in **Task 1**.
+
+-   Print the **first 3 rows**. (Use `head()`.)
+-   Print the value from the **4th row, 1st column**.
+-   Print only the column that contains your logical values (e.g., `is_habitable`) as a vector.
+
+**Logical Subsetting**: Create a new data frame `df_subset` that contains only the rows that meet a specific logical condition.
+
+-   Example: `df_subset <- your_df[your_df$population > 1000, ]`
+
+`%in%` **Subsetting**: Create a new data frame `df_subset_2` that selects rows belonging to **two specific categories** from your factor or character column.
+
+-   Example: `df_subset_2 <- your_df[your_df$region %in% c("North", "South"), ]`
+
+```{r}
+cat("First 3 rows:\n")
+print(head(busya_day, 3))
+cat("Value at [4,1]:", busya_day[4, 1], "\n")
+cat("Logical column (With_Owner):\n")
+print(busya_day$With_Owner)
+
+# Logical subsetting
+
+df_subset <- busya_day[busya_day$Duration_h > 1, ]
+cat("Subset of long activities (>1h):\n")
+print(df_subset)
+
+# %in% subsetting
+
+df_subset_2 <- busya_day[busya_day$Enjoyment %in% c("high", "very high"), ]
+cat("Subset of activities with high enjoyment:\n")
+print(df_subset_2)
+
+```
+
+### 2.4. Handling "Corrupted" Data (`NA`)
+
+Create a copy of your original data frame (e.g., `df_corrupted <- your_df`).
+
+**Introduce 3 `NA`s** into your df_corrupted at specific locations.
+
+-   Example: `df_corrupted[2, 3] <- NA`
+
+**Find `NAs`**:
+
+-   Use `sum(is.na(df_corrupted)`) to find the **total number** of missing values.
+-   Use `colSums(is.na(df_corrupted))` to see how many `NA`s are in **each column**.
+
+**Calculate with `NA`s**:
+
+-   Calculate the `mean()` of the numeric column where you added an `NA`.
+
+**Filter `NA`s**:
+
+-   Use `na.omit(df_corrupted)` to create a new, "clean" data frame that contains only the complete rows.
+
+```{r}
+df_corrupted <- busya_day
+df_corrupted[2, "Duration_h"] <- NA
+df_corrupted[5, "Enjoyment"] <- NA
+df_corrupted[3, "With_Owner"] <- NA
+
+cat("Corrupted Data Frame with NAs:\n")
+print(df_corrupted)
+
+total_na <- sum(is.na(df_corrupted))
+cat("Total NAs:", total_na, "\n")
+cat("NAs per column:\n")
+print(colSums(is.na(df_corrupted)))
+
+mean_duration <- mean(df_corrupted$Duration_h, na.rm = TRUE)
+cat("Mean Duration_h (ignoring NA):", mean_duration, "\n")
+
+df_clean <- na.omit(df_corrupted)
+cat("Cleaned data frame (no NAs):\n")
+print(df_clean)
+
+```
+
+### 2.5. Bonus Challenge: `which()`
+
+Use `which.max()` or `which.min()` to find the **row number** (index) of the observation with the highest or lowest value in one of your numeric columns.
+
+Use that index to print the row with that observation.
+
+-   Example: `highest_pop_index <- which.max(your_df$population)`
+-   Example: `your_df[highest_pop_index, ]`
+
+```{r}
+highest_duration_index <- which.max(busya_day$Duration_h)
+cat("Row with highest Duration_h:\n")
+print(busya_day[highest_duration_index, ])
+
+```
